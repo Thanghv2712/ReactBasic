@@ -1,55 +1,55 @@
 import React, { useState } from 'react'
-
-
+import Childcomponent from './childcomponent';
 
 const Mycomponents = () => {
-  const [state , setState] = useState({
-    name : "thắng con" ,
-    age : 19
-  })
-
- 
-const handleOnChange=(e)=>{
-    setState({
-      name : e.target.value ,
-      age : state.age
+  
+    const [state , setState] = useState({
+      name: "",
+      pass : "",
+      arrJobs:  [
+      { id : 1 , title : "Sách Toán" , price : "500 $"   },
+      { id : 2 , title : "Sách Hoá" , price : "200 $"   },
+      { id : 3 , title : "Sách EngLish" , price : "100 $"   }
+      ]
     })
-}
-const HandleOnClick = ()=>{
-    setState({
-      ...state,
-      age : state.age + 1
-    })
-}
+    console.log("call state : " , state);
 
+    const onHandleName = (e)=>{
+        setState({
+          ...state ,
+          name: e.target.value
+        })
 
-
-
-  const HandleOnClickGiam =()=>{
-    if (state.age > 1) {
-      setState({
-        ...state,
-        age : state.age - 1
-      })
-    } else {
-      console.log("lỗi tuổi k được dưới 1")
     }
-   
-  }
+    const onHandlePass = (e)=>{
+      setState({
+        ...state ,
+        pass : e.target.value
+      })
+    }
+    const onHandleSM = (e)=> {
+        e.preventDefault();
+        console.log("check data :" , state);
 
+    }
 
   return (
     <div>
-     <div className='ten'>
-      <input type="text" value={state.name}  onChange={(e)=>handleOnChange(e)}/>
-      tôi tên là : {state.name}
-     </div>
-     <div className='tuổi'>
-      năm nay tôi : {state.age} tuổi
-      <button  onClick={()=> HandleOnClick()}>Tăng</button>
-      <button  onClick={()=> HandleOnClickGiam()}>Giảm</button>
-     </div>
-    
+        <label htmlFor="">Tài Khoản</label> <br />
+        <input type="text" value={state.name} onChange={(e)=> onHandleName(e)}/> <br />
+        <label htmlFor="">Mật Khẩu</label> <br />
+        <input type="password" value={state.pass} onChange={(e)=> onHandlePass(e)}/> <br />
+        <button type='submit' onClick={(e)=> onHandleSM(e)}>Đăng NhẬP</button>
+        
+
+        <Childcomponent 
+          // name = {state.name} 
+          // pass = {state.pass}
+          arrJobs = {state.arrJobs}
+        
+        />
+
+
     </div>
   )
 }
